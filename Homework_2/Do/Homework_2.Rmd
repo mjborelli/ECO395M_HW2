@@ -1,8 +1,0 @@
----
-title: "Homework 2"
-author: "Matthew Borelli & Isaac Hulsey"
-date: "2/2/2020"
-output: md_document
-setwd("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/Homework_2")
----
-
