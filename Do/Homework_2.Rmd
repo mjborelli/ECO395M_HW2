@@ -1,5 +1,5 @@
 ---
-title: "Homeowrk 2"
+title: "Homework 2"
 author: "Matthew Borelli & Isaac Hulsey"
 date: "3/2/2020"
 output: md_document
