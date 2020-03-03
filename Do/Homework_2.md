@@ -21,8 +21,7 @@ to examing two important questions for you:
     that they should be weighing some clinical risk factors more heavily
     than they currently are?
 
-Conservative Radiologists
--------------------------
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD \#\# Conservative Radiologists
 
 The naive method for analyzing conservativeness amongst your
 radiologists would be to look at the raw recall rates. Radiologists with
