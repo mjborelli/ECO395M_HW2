@@ -1,7 +1,7 @@
 ---
 title: "Homework 2"
 author: "Matthew Borelli & Isaac Hulsey"
-date: "2/2/2020"
+date: "3/2/2020"
 output: md_document
 ---
 
@@ -17,3 +17,4 @@ online_news = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO
 ## Introduction
 
 The main goal of this statistical analysis is to audit the performance of your radiologists for mammogram screenings. 
+
