@@ -20,3 +20,4 @@ The main goal of this statistical analysis is to audit the performance of your r
 
 - Are some radiologists more clinically conservative than others in recalling patients, holding patient risk factors equal?
 - When the radiologists at this hospital interpret a mammogram to make a decision on whether to recall the patient, does the data suggest that they should be weighing some clinical risk factors more heavily than they currently are?
+
