@@ -5,4 +5,16 @@ date: "3/2/2020"
 output: md_document
 ---
 
-hello
+```{r data, include=FALSE}
+library(readr)
+# setwd("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2")
+brca = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/brca.csv")
+online_news = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/online_news.csv")
+```
+
+# A Hospital Audit
+
+## Introduction
+
+The main goal of this statistical analysis is to audit the performance of your radiologists for mammogram screenings. 
+
