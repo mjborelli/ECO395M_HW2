@@ -52,10 +52,12 @@ Judging from this chart, we would say that radiologist 34 is more conservative i
 
 ```{r recall_regress, echo=FALSE}
 recall = glm(recall ~ radiologist + age + history + symptoms + menopause + density, data=brca, family=binomial)
-stargazer(recall, type="html")
+stargazer(recall, type="text")
 ```
 
+The logit regression results do not show significant coefficients for any of the radiologists. To note, radiologist 13 is the omitted radiologist. We see no signficanct difference for any of the other radiologists other than radiologist 85, who has a positive (less conservative) difference at the 10% level. It is possible that radiologists 34 and 85 are significantly different, but we can't really be certain that radiologist 34 is more conservative than the others. Overall, since we see that there aren't any radiologists in our sample that are significantally more conservative in recalling patients after using a logit model to hold risk factors constant.
 
+## Importance of Clinical Risk Factors
 
 # Predicting When Articles Go Viral
 
