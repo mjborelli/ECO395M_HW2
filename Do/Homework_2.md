@@ -59,75 +59,62 @@ menopause status, breast density classification, and whether the patient
 has had a previous mammogram.
 
     ## 
-    ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-    ## % Date and time: Tue, Mar 03, 2020 - 8:22:24 PM
-    ## \begin{table}[!htbp] \centering 
-    ##   \caption{} 
-    ##   \label{} 
-    ## \begin{tabular}{@{\extracolsep{5pt}}lc} 
-    ## \\[-1.8ex]\hline 
-    ## \hline \\[-1.8ex] 
-    ##  & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
-    ## \cline{2-2} 
-    ## \\[-1.8ex] & recall \\ 
-    ## \hline \\[-1.8ex] 
-    ##  radiologistradiologist34 & $-$0.522 \\ 
-    ##   & (0.328) \\ 
-    ##   & \\ 
-    ##  radiologistradiologist66 & 0.355 \\ 
-    ##   & (0.279) \\ 
-    ##   & \\ 
-    ##  radiologistradiologist89 & 0.464$^{*}$ \\ 
-    ##   & (0.280) \\ 
-    ##   & \\ 
-    ##  radiologistradiologist95 & $-$0.052 \\ 
-    ##   & (0.294) \\ 
-    ##   & \\ 
-    ##  ageage5059 & 0.111 \\ 
-    ##   & (0.295) \\ 
-    ##   & \\ 
-    ##  ageage6069 & 0.157 \\ 
-    ##   & (0.362) \\ 
-    ##   & \\ 
-    ##  ageage70plus & 0.108 \\ 
-    ##   & (0.369) \\ 
-    ##   & \\ 
-    ##  history & 0.216 \\ 
-    ##   & (0.233) \\ 
-    ##   & \\ 
-    ##  symptoms & 0.729$^{**}$ \\ 
-    ##   & (0.359) \\ 
-    ##   & \\ 
-    ##  menopausepostmenoNoHT & $-$0.193 \\ 
-    ##   & (0.237) \\ 
-    ##   & \\ 
-    ##  menopausepostmenounknown & 0.403 \\ 
-    ##   & (0.464) \\ 
-    ##   & \\ 
-    ##  menopausepremeno & 0.342 \\ 
-    ##   & (0.313) \\ 
-    ##   & \\ 
-    ##  densitydensity2 & 1.220$^{**}$ \\ 
-    ##   & (0.539) \\ 
-    ##   & \\ 
-    ##  densitydensity3 & 1.419$^{***}$ \\ 
-    ##   & (0.536) \\ 
-    ##   & \\ 
-    ##  densitydensity4 & 1.000$^{*}$ \\ 
-    ##   & (0.602) \\ 
-    ##   & \\ 
-    ##  Constant & $-$3.275$^{***}$ \\ 
-    ##   & (0.640) \\ 
-    ##   & \\ 
-    ## \hline \\[-1.8ex] 
-    ## Observations & 987 \\ 
-    ## Log Likelihood & $-$399.993 \\ 
-    ## Akaike Inf. Crit. & 831.986 \\ 
-    ## \hline 
-    ## \hline \\[-1.8ex] 
-    ## \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-    ## \end{tabular} 
-    ## \end{table}
+    ## <table style="text-align:center"><tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td><em>Dependent variable:</em></td></tr>
+    ## <tr><td></td><td colspan="1" style="border-bottom: 1px solid black"></td></tr>
+    ## <tr><td style="text-align:left"></td><td>recall</td></tr>
+    ## <tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">radiologistradiologist34</td><td>-0.522</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.328)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">radiologistradiologist66</td><td>0.355</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.279)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">radiologistradiologist89</td><td>0.464<sup>*</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.280)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">radiologistradiologist95</td><td>-0.052</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.294)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">ageage5059</td><td>0.111</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.295)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">ageage6069</td><td>0.157</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.362)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">ageage70plus</td><td>0.108</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.369)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">history</td><td>0.216</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.233)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">symptoms</td><td>0.729<sup>**</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.359)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">menopausepostmenoNoHT</td><td>-0.193</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.237)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">menopausepostmenounknown</td><td>0.403</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.464)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">menopausepremeno</td><td>0.342</td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.313)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">densitydensity2</td><td>1.220<sup>**</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.539)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">densitydensity3</td><td>1.419<sup>***</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.536)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">densitydensity4</td><td>1.000<sup>*</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.602)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td style="text-align:left">Constant</td><td>-3.275<sup>***</sup></td></tr>
+    ## <tr><td style="text-align:left"></td><td>(0.640)</td></tr>
+    ## <tr><td style="text-align:left"></td><td></td></tr>
+    ## <tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>987</td></tr>
+    ## <tr><td style="text-align:left">Log Likelihood</td><td>-399.993</td></tr>
+    ## <tr><td style="text-align:left">Akaike Inf. Crit.</td><td>831.986</td></tr>
+    ## <tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+    ## </table>
 
 Predicting When Articles Go Viral
 =================================

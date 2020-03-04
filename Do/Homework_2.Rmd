@@ -52,7 +52,7 @@ Judging from this chart, we would say that radiologist 34 is more conservative i
 
 ```{r recall_regress, echo=FALSE}
 recall = glm(recall ~ radiologist + age + history + symptoms + menopause + density, data=brca, family=binomial)
-stargazer(recall, type="latex")
+stargazer(recall, type="html")
 ```
 
 
