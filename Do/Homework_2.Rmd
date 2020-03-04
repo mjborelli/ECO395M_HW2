@@ -10,6 +10,7 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 library(plyr)
+library(knitr)
 # setwd("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2")
 brca = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/brca.csv")
 online_news = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/online_news.csv")
@@ -24,7 +25,6 @@ The main goal of this statistical analysis is to audit the performance of your r
 - Are some radiologists more clinically conservative than others in recalling patients, holding patient risk factors equal?
 - When the radiologists at this hospital interpret a mammogram to make a decision on whether to recall the patient, does the data suggest that they should be weighing some clinical risk factors more heavily than they currently are?
 
-<<<<<<< HEAD
 ## Conservative Radiologists
 
 The naive method for analyzing conservativeness amongst your radiologists would be to look at the raw recall rates. Radiologists with a lower than average recall rate would be considered "conservative". Below is a bar chart showing the raw recall rates for each of the radiologists in our sample.
@@ -47,16 +47,17 @@ ggplot(data = radio_conserv, mapping = aes(x = Radiologist, y = Recall_PCT)) +
 
 ```
 
-Judging from this chart, we would say that radiologist 34 is more conservative in recalling patients than the other radiologists. However, this simple analysis overlooks an important nuance: Doctors might see different patients in systematic ways that affect their recall rates. The next step we took was to control for patient factors to see if any radiologists are  more conservative than others, holding all else fixed.
+Judging from this chart, we would say that radiologist 34 is more conservative in recalling patients than the other radiologists. However, this simple analysis overlooks an important nuance: Doctors might see different patients in systematic ways that affect their recall rates. The next step we took was to control for patient factors to see if any radiologists are  more conservative than others, holding all else fixed. The following is the results from a logit regression model with controls for age, family history of breast biopsy, breat cancer symptoms, menopause status, breast density classification, and whether the patient has had a previous mammogram. 
 
 ```{r recall_regress, echo=FALSE}
-recall = glm(recall ~ radiologist + history + symptoms + menopause + density, data=brca, family=binomial)
-recall
+recall = glm(recall ~ radiologist + age + history + symptoms + menopause + density, data=brca, family=binomial)
+summary(recall)
 ```
 
 
 
+# Predicting When Articles Go Viral
 
-#Predicting When Articles Go Viral
+## Introduction
 
 
