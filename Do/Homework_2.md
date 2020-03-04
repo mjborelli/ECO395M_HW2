@@ -59,42 +59,75 @@ menopause status, breast density classification, and whether the patient
 has had a previous mammogram.
 
     ## 
-    ## Call:
-    ## glm(formula = recall ~ radiologist + age + history + symptoms + 
-    ##     menopause + density, family = binomial, data = brca)
-    ## 
-    ## Deviance Residuals: 
-    ##     Min       1Q   Median       3Q      Max  
-    ## -1.0445  -0.6185  -0.5186  -0.3761   2.7939  
-    ## 
-    ## Coefficients:
-    ##                          Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)              -3.27515    0.64028  -5.115 3.13e-07 ***
-    ## radiologistradiologist34 -0.52171    0.32764  -1.592  0.11132    
-    ## radiologistradiologist66  0.35466    0.27895   1.271  0.20358    
-    ## radiologistradiologist89  0.46376    0.28026   1.655  0.09797 .  
-    ## radiologistradiologist95 -0.05219    0.29380  -0.178  0.85900    
-    ## ageage5059                0.11121    0.29534   0.377  0.70651    
-    ## ageage6069                0.15683    0.36212   0.433  0.66494    
-    ## ageage70plus              0.10782    0.36923   0.292  0.77028    
-    ## history                   0.21588    0.23301   0.926  0.35419    
-    ## symptoms                  0.72928    0.35897   2.032  0.04219 *  
-    ## menopausepostmenoNoHT    -0.19342    0.23732  -0.815  0.41506    
-    ## menopausepostmenounknown  0.40267    0.46399   0.868  0.38548    
-    ## menopausepremeno          0.34208    0.31269   1.094  0.27396    
-    ## densitydensity2           1.22015    0.53897   2.264  0.02358 *  
-    ## densitydensity3           1.41907    0.53562   2.649  0.00806 ** 
-    ## densitydensity4           1.00034    0.60196   1.662  0.09656 .  
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## (Dispersion parameter for binomial family taken to be 1)
-    ## 
-    ##     Null deviance: 834.25  on 986  degrees of freedom
-    ## Residual deviance: 799.99  on 971  degrees of freedom
-    ## AIC: 831.99
-    ## 
-    ## Number of Fisher Scoring iterations: 5
+    ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+    ## % Date and time: Tue, Mar 03, 2020 - 8:22:24 PM
+    ## \begin{table}[!htbp] \centering 
+    ##   \caption{} 
+    ##   \label{} 
+    ## \begin{tabular}{@{\extracolsep{5pt}}lc} 
+    ## \\[-1.8ex]\hline 
+    ## \hline \\[-1.8ex] 
+    ##  & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+    ## \cline{2-2} 
+    ## \\[-1.8ex] & recall \\ 
+    ## \hline \\[-1.8ex] 
+    ##  radiologistradiologist34 & $-$0.522 \\ 
+    ##   & (0.328) \\ 
+    ##   & \\ 
+    ##  radiologistradiologist66 & 0.355 \\ 
+    ##   & (0.279) \\ 
+    ##   & \\ 
+    ##  radiologistradiologist89 & 0.464$^{*}$ \\ 
+    ##   & (0.280) \\ 
+    ##   & \\ 
+    ##  radiologistradiologist95 & $-$0.052 \\ 
+    ##   & (0.294) \\ 
+    ##   & \\ 
+    ##  ageage5059 & 0.111 \\ 
+    ##   & (0.295) \\ 
+    ##   & \\ 
+    ##  ageage6069 & 0.157 \\ 
+    ##   & (0.362) \\ 
+    ##   & \\ 
+    ##  ageage70plus & 0.108 \\ 
+    ##   & (0.369) \\ 
+    ##   & \\ 
+    ##  history & 0.216 \\ 
+    ##   & (0.233) \\ 
+    ##   & \\ 
+    ##  symptoms & 0.729$^{**}$ \\ 
+    ##   & (0.359) \\ 
+    ##   & \\ 
+    ##  menopausepostmenoNoHT & $-$0.193 \\ 
+    ##   & (0.237) \\ 
+    ##   & \\ 
+    ##  menopausepostmenounknown & 0.403 \\ 
+    ##   & (0.464) \\ 
+    ##   & \\ 
+    ##  menopausepremeno & 0.342 \\ 
+    ##   & (0.313) \\ 
+    ##   & \\ 
+    ##  densitydensity2 & 1.220$^{**}$ \\ 
+    ##   & (0.539) \\ 
+    ##   & \\ 
+    ##  densitydensity3 & 1.419$^{***}$ \\ 
+    ##   & (0.536) \\ 
+    ##   & \\ 
+    ##  densitydensity4 & 1.000$^{*}$ \\ 
+    ##   & (0.602) \\ 
+    ##   & \\ 
+    ##  Constant & $-$3.275$^{***}$ \\ 
+    ##   & (0.640) \\ 
+    ##   & \\ 
+    ## \hline \\[-1.8ex] 
+    ## Observations & 987 \\ 
+    ## Log Likelihood & $-$399.993 \\ 
+    ## Akaike Inf. Crit. & 831.986 \\ 
+    ## \hline 
+    ## \hline \\[-1.8ex] 
+    ## \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+    ## \end{tabular} 
+    ## \end{table}
 
 Predicting When Articles Go Viral
 =================================

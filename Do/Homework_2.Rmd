@@ -11,6 +11,7 @@ library(ggplot2)
 library(dplyr)
 library(plyr)
 library(knitr)
+library(stargazer)
 # setwd("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2")
 brca = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/brca.csv")
 online_news = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/online_news.csv")
@@ -51,7 +52,7 @@ Judging from this chart, we would say that radiologist 34 is more conservative i
 
 ```{r recall_regress, echo=FALSE}
 recall = glm(recall ~ radiologist + age + history + symptoms + menopause + density, data=brca, family=binomial)
-summary(recall)
+stargazer(recall, type="latex")
 ```
 
 
