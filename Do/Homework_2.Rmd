@@ -30,7 +30,7 @@ The main goal of this statistical analysis is to audit the performance of your r
 
 The naive method for analyzing conservativeness amongst your radiologists would be to look at the raw recall rates. Radiologists with a lower than average recall rate would be considered "conservative". Below is a bar chart showing the raw recall rates for each of the radiologists in our sample.
 
-```{r initial}
+```{r initial, echo=FALSE}
 conserv = as.data.frame(xtabs(~ radiologist + recall, brca))
 
 radio_conserv = data.frame(Radiologist=levels(conserv$radiologist),
@@ -44,20 +44,38 @@ for (i in 1:5) {
 colnames(radio_conserv)[2] <- "Recall_PCT"
 
 ggplot(data = radio_conserv, mapping = aes(x = Radiologist, y = Recall_PCT)) +
-  geom_col(position = "stack")
+  geom_col(position = "stack") +
+  labs(x = "")
 
 ```
 
-Judging from this chart, we would say that radiologist 34 is more conservative in recalling patients than the other radiologists. However, this simple analysis overlooks an important nuance: Doctors might see different patients in systematic ways that affect their recall rates. The next step we took was to control for patient factors to see if any radiologists are  more conservative than others, holding all else fixed. The following is the results from a logit regression model with controls for age, family history of breast biopsy, breat cancer symptoms, menopause status, breast density classification, and whether the patient has had a previous mammogram. 
+Judging from this chart, we would say that radiologist 34 is more conservative in recalling patients than the other radiologists. However, this simple analysis overlooks an important nuance: Doctors might see different patients in systematic ways that affect their recall rates. The next step we took was to control for patient factors to see if any radiologists are  more conservative than others, holding all else fixed. The following is the results from a logit regression model with controls for breat cancer symptoms and breast density classification. All other controls in the data set given had no statistically significant effect on the probability of a recall. 
 
 ```{r recall_regress, echo=FALSE}
 recall = glm(recall ~ radiologist + age + history + symptoms + menopause + density, data=brca, family=binomial)
-stargazer(recall, type="text")
+
+# Of the controls, only symptoms and density had significant effects on recall, adjust model
+
+recall_v2 = glm(recall ~ radiologist + symptoms + density, data=brca, family=binomial)
+stargazer(recall_v2, type="text")
 ```
 
 The logit regression results do not show significant coefficients for any of the radiologists. To note, radiologist 13 is the omitted radiologist. We see no signficanct difference for any of the other radiologists other than radiologist 85, who has a positive (less conservative) difference at the 10% level. It is possible that radiologists 34 and 85 are significantly different, but we can't really be certain that radiologist 34 is more conservative than the others. Overall, since we see that there aren't any radiologists in our sample that are significantally more conservative in recalling patients after using a logit model to hold risk factors constant.
 
 ## Importance of Clinical Risk Factors
+
+Now, instead of analyzing what might affect the probability of a radiologist recalling a patient, we want to see what factors best predict the likelihood of a patient having breast cancer. To do this, we will use a few different classification methods in order to better understand what risk factors best predict the probability of breast cancer.
+
+### Null Model
+
+To start, we want to set a baseline that we can compare following models to. For our baseline, we use a null model which simply predicts the most likely answer for each observation.
+
+```{r null, echo = FALSE}
+table(Cancer = brca$cancer)
+```
+
+The null model, in this case predicting that each patient does not have cancer, has a `r round(950/(950+37)*100, digits=2)`%
+
 
 # Predicting When Articles Go Viral
 

@@ -30,21 +30,6 @@ a lower than average recall rate would be considered “conservative”.
 Below is a bar chart showing the raw recall rates for each of the
 radiologists in our sample.
 
-    conserv = as.data.frame(xtabs(~ radiologist + recall, brca))
-
-    radio_conserv = data.frame(Radiologist=levels(conserv$radiologist),
-                               stringsAsFactors = FALSE)
-
-    for (i in 1:5) {
-      no_recall_raw = conserv[1, 3]
-      recall_raw = conserv[i + 5, 3]
-      radio_conserv[i, 2] = (recall_raw)/(no_recall_raw + recall_raw)
-    }
-    colnames(radio_conserv)[2] <- "Recall_PCT"
-
-    ggplot(data = radio_conserv, mapping = aes(x = Radiologist, y = Recall_PCT)) +
-      geom_col(position = "stack")
-
 ![](Homework_2_files/figure-markdown_strict/initial-1.png)
 
 Judging from this chart, we would say that radiologist 34 is more
@@ -54,9 +39,9 @@ different patients in systematic ways that affect their recall rates.
 The next step we took was to control for patient factors to see if any
 radiologists are more conservative than others, holding all else fixed.
 The following is the results from a logit regression model with controls
-for age, family history of breast biopsy, breat cancer symptoms,
-menopause status, breast density classification, and whether the patient
-has had a previous mammogram.
+for breat cancer symptoms and breast density classification. All other
+controls in the data set given had no statistically significant effect
+on the probability of a recall.
 
     ## 
     ## ====================================================
@@ -64,58 +49,37 @@ has had a previous mammogram.
     ##                          ---------------------------
     ##                                    recall           
     ## ----------------------------------------------------
-    ## radiologistradiologist34           -0.522           
-    ##                                    (0.328)          
+    ## radiologistradiologist34           -0.521           
+    ##                                    (0.326)          
     ##                                                     
-    ## radiologistradiologist66            0.355           
-    ##                                    (0.279)          
+    ## radiologistradiologist66            0.361           
+    ##                                    (0.275)          
     ##                                                     
-    ## radiologistradiologist89           0.464*           
-    ##                                    (0.280)          
+    ## radiologistradiologist89           0.474*           
+    ##                                    (0.278)          
     ##                                                     
-    ## radiologistradiologist95           -0.052           
-    ##                                    (0.294)          
+    ## radiologistradiologist95           -0.028           
+    ##                                    (0.291)          
     ##                                                     
-    ## ageage5059                          0.111           
-    ##                                    (0.295)          
+    ## symptoms                           0.736**          
+    ##                                    (0.354)          
     ##                                                     
-    ## ageage6069                          0.157           
-    ##                                    (0.362)          
+    ## densitydensity2                    1.251**          
+    ##                                    (0.537)          
     ##                                                     
-    ## ageage70plus                        0.108           
-    ##                                    (0.369)          
+    ## densitydensity3                   1.523***          
+    ##                                    (0.530)          
     ##                                                     
-    ## history                             0.216           
-    ##                                    (0.233)          
+    ## densitydensity4                    1.160**          
+    ##                                    (0.587)          
     ##                                                     
-    ## symptoms                           0.729**          
-    ##                                    (0.359)          
-    ##                                                     
-    ## menopausepostmenoNoHT              -0.193           
-    ##                                    (0.237)          
-    ##                                                     
-    ## menopausepostmenounknown            0.403           
-    ##                                    (0.464)          
-    ##                                                     
-    ## menopausepremeno                    0.342           
-    ##                                    (0.313)          
-    ##                                                     
-    ## densitydensity2                    1.220**          
-    ##                                    (0.539)          
-    ##                                                     
-    ## densitydensity3                   1.419***          
-    ##                                    (0.536)          
-    ##                                                     
-    ## densitydensity4                    1.000*           
-    ##                                    (0.602)          
-    ##                                                     
-    ## Constant                          -3.275***         
-    ##                                    (0.640)          
+    ## Constant                          -3.183***         
+    ##                                    (0.554)          
     ##                                                     
     ## ----------------------------------------------------
     ## Observations                         987            
-    ## Log Likelihood                    -399.993          
-    ## Akaike Inf. Crit.                  831.986          
+    ## Log Likelihood                    -402.536          
+    ## Akaike Inf. Crit.                  823.072          
     ## ====================================================
     ## Note:                    *p<0.1; **p<0.05; ***p<0.01
 
@@ -132,6 +96,26 @@ using a logit model to hold risk factors constant.
 
 Importance of Clinical Risk Factors
 -----------------------------------
+
+Now, instead of analyzing what might affect the probability of a
+radiologist recalling a patient, we want to see what factors best
+predict the likelihood of a patient having breast cancer. To do this, we
+will use a few different classification methods in order to better
+understand what risk factors best predict the probability of breast
+cancer.
+
+### Null Model
+
+To start, we want to set a baseline that we can compare following models
+to. For our baseline, we use a null model which simply predicts the most
+likely answer for each observation.
+
+    ## Cancer
+    ##   0   1 
+    ## 950  37
+
+The null model, in this case predicting that each patient does not have
+cancer, has a 96.25%
 
 Predicting When Articles Go Viral
 =================================
