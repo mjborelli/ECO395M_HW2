@@ -129,17 +129,19 @@ improvement in recall accuracy.
     ##      0 824 126
     ##      1  15  22
 
+    Accuracy = round(100*(sum(diag(baseline)/n)), digits = 2)
+    Sensitivity = round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)
+    Specificity = round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)
+    PPV = round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)
+
 From this table, we can generate important medical statistics that will
 help us compare predictions from our model against the actual decisions
 of radiologists:
 
--   Accuracy = `round(100*(sum(diag(baseline)/n)), digits = 2)`%
--   Sensitivity =
-    `round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
--   Specificity =
-    `round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
--   Positive Predictive Value =
-    `round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
+-   Accuracy = 85.71%
+-   Sensitivity = 59.46%
+-   Specificity = 86.74%
+-   Positive Predictive Value = 14.86
 
 All of these give important information about the recall process,
 therefore we will analyze all of them for each model. However, the most
@@ -157,10 +159,17 @@ do this, we will graph simple two-way scatter plots for the risk factors
 in question.
 
 -   Age Category
-    ![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
+
+![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
+
+There seems to be a positive trend with age, even though ages 60-69 are
+less likely to be diagnosed with breast cancer. Patients aged 70+ are
+almost twice as likely to be diagnosed with breast cancer than any other
+age category.
 
 -   History of Breast Biopsy/Surgery
-    ![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
+
+![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
 
 -   Breast Cancer Symptoms
 
@@ -169,12 +178,9 @@ in question.
 -   Menopause Status
 
 ![](Homework_2_files/figure-markdown_strict/menopause_bar-1.png)
-----------------------------------------------------------------
 
-### 
+-   Breast Density Classification
 
-Predicting When Articles Go Viral
-=================================
+![](Homework_2_files/figure-markdown_strict/density_bar-1.png)
 
-Introduction
-------------
+### Modeling the Recall Decision

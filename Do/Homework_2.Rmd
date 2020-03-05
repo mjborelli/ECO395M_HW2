@@ -82,13 +82,19 @@ baseline = table(Cancer = brca$cancer, Recall = brca$recall)
 baseline
 n = nrow(brca)
 ```
+```{r inline}
+Accuracy = round(100*(sum(diag(baseline)/n)), digits = 2)
+Sensitivity = round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)
+Specificity = round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)
+PPV = round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)
+```
 
 From this table, we can generate important medical statistics that will help us compare predictions from our model against the actual decisions of radiologists:
 
-- Accuracy = `round(100*(sum(diag(baseline)/n)), digits = 2)`%
-- Sensitivity = `round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
-- Specificity = `round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
-- Positive Predictive Value = `round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
+- Accuracy = `r round(100*(sum(diag(baseline)/n)), digits = 2)`%
+- Sensitivity = `r round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
+- Specificity = `r round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
+- Positive Predictive Value = `r round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
 
 All of these give important information about the recall process, therefore we will analyze all of them for each model. However, the most important your case is the sensitivity, as the consequences of missing a case of breast cancer are worse than incorrectly suspecting that someone does have breast cancer. We will look at all four of these values, but focus on the sensitivity of these models in order to limit the possibility of missing breast cancer patients.
 
@@ -98,6 +104,7 @@ All of these give important information about the recall process, therefore we w
 Before deciding on a model, we want to graphically look at the relationships between the risk factors and breast cancer diagnoses. To do this, we will graph simple two-way scatter plots for the risk factors in question.
 
 - Age Category
+
 ```{r age_bar, echo = FALSE}
 age_cancer_setup = as.data.frame(table(Age = brca$age,  Cancer = brca$cancer))
 age_cancer = data.frame(Age=levels(age_cancer_setup$age),
@@ -113,7 +120,10 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) +
      labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
 ```
 
+There seems to be a positive trend with age, even though ages 60-69 are less likely to be diagnosed with breast cancer. Patients aged 70+ are almost twice as likely to be diagnosed with breast cancer than any other age category.
+
 - History of Breast Biopsy/Surgery 
+
 ```{r history_bar, echo = FALSE}
 history_cancer_setup = as.data.frame(table(History = brca$history,  Cancer = brca$cancer))
 history_cancer = data.frame(History=levels(history_cancer_setup$age),
@@ -162,14 +172,24 @@ p0 = ggplot(data = menopause_cancer)
 p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
      labs(x = "Menopause Status", y = "Pct. Diagnosed w/ Breast Cancer")
 ```
--
+
+- Breast Density Classification
+
+```{r density_bar, echo = FALSE}
+density_cancer_setup = as.data.frame(table(Density = brca$density,  Cancer = brca$cancer))
+density_cancer = data.frame(Age=levels(density_cancer_setup$density),
+                           stringsAsFactors = FALSE)
+for (i in 1:4) {
+  density_cancer[i, 1] = density_cancer_setup[i, 1]
+  no_cancer = density_cancer_setup[i, 3]
+  cancer = density_cancer_setup[i + 4, 3]
+  density_cancer[i, 2] = 100*cancer/(no_cancer + cancer)
+}
+p0 = ggplot(data = density_cancer)
+p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
+     labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
+```
 
 
-
-###
-
-# Predicting When Articles Go Viral
-
-## Introduction
-
+### Modeling the Recall Decision
 
