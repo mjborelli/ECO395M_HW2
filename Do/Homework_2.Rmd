@@ -91,7 +91,7 @@ PPV = round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)
 
 From this table, we can generate important medical statistics that will help us compare predictions from our model against the actual decisions of radiologists:
 
-- Accuracy = `r round(100*(sum(diag(baseline)/n)), digits = 2)`%
+- Accuracy = `r Accuracy`%
 - Sensitivity = `r round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
 - Specificity = `r round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
 - Positive Predictive Value = `r round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
