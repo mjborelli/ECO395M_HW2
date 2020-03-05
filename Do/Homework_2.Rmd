@@ -82,7 +82,7 @@ baseline = table(Cancer = brca$cancer, Recall = brca$recall)
 baseline
 n = nrow(brca)
 ```
-```{r inline}
+```{r inline, echo = FALSE}
 Accuracy = round(100*(sum(diag(baseline)/n)), digits = 2)
 Sensitivity = round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)
 Specificity = round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)
@@ -92,9 +92,9 @@ PPV = round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)
 From this table, we can generate important medical statistics that will help us compare predictions from our model against the actual decisions of radiologists:
 
 - Accuracy = `r Accuracy`%
-- Sensitivity = `r round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
-- Specificity = `r round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
-- Positive Predictive Value = `r round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
+- Sensitivity = `r Sensitivity`%
+- Specificity = `r Specificity`%
+- Positive Predictive Value = `r PPV`%
 
 All of these give important information about the recall process, therefore we will analyze all of them for each model. However, the most important your case is the sensitivity, as the consequences of missing a case of breast cancer are worse than incorrectly suspecting that someone does have breast cancer. We will look at all four of these values, but focus on the sensitivity of these models in order to limit the possibility of missing breast cancer patients.
 
@@ -191,5 +191,85 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) +
 ```
 
 
-### Modeling the Recall Decision
+### Importance of Risk Factors
+
+There are two general ways to model classification problems: Linear Probability models (LPM), and K-Nearest Neighbors (KNN). Due to the relative lack of cancer diagnoses and because all of the risk factors are categorical, it makes the most sense to use a LPM instead of a KNN. If given a larger sample of the data, KNN could be a more viable option for modelling breast cancer probabilities.
+
+To start, we will look at the linear probability model with all of the risk factors and no interactions between them. To note, we will use a 5% threshold for the limit at which a doctor should recall a patient for further testing.
+
+```{r base_model, echo = FALSE}
+base_glm = glm(cancer ~ age + history + symptoms + menopause + density, data=brca, family = binomial)
+
+phat_test_logit_basecancer = predict(base_glm, brca, type='response')
+yhat_test_logit_basecancer = ifelse(phat_test_logit_basecancer > 0.05, 1, 0)
+confusion_base = table(y = brca$cancer, yhat = yhat_test_logit_basecancer)
+
+confusion_base
+```
+```{r inline_base, echo = FALSE}
+Accuracy_base = round(100*(sum(diag(confusion_base)/n)), digits = 2)
+Sensitivity_base = round(100*confusion_base[2,2] / (sum(confusion_base[2,])), digits=2)
+Specificity_base = round(100*(1 - (confusion_base[1,2] / sum(confusion_base[1,]))), digits = 2)
+PPV_base = round(100*(1 - (confusion_base[1, 2] / sum(confusion_base[, 2]))), digits = 2)
+```
+
+- Accuracy = `r Accuracy_base`%
+- Sensitivity = `r Sensitivity_base`%
+- Specificity = `r Specificity_base`%
+- Positive Predictive Value = `r PPV_base`%
+
+Our base model has less accuracy, sensitivity, specificity, and positive predictive value than what we currently observe from radiologists. To try and improve the model, we take the two statistically significant variables from the base model, age and density, and create a new LPM to see if we improve any of our measures.
+
+```{r reduced_model, echo = FALSE}
+reduced_glm = glm(cancer ~ age + density, data=brca, family = binomial)
+
+phat_test_logit_reducedcancer = predict(reduced_glm, brca, type='response')
+yhat_test_logit_reducedcancer = ifelse(phat_test_logit_reducedcancer > 0.05, 1, 0)
+confusion_reduced = table(y = brca$cancer, yhat = yhat_test_logit_reducedcancer)
+
+confusion_reduced
+```
+```{r inline_reduced, echo = FALSE}
+Accuracy_reduced = round(100*(sum(diag(confusion_reduced)/n)), digits = 2)
+Sensitivity_reduced = round(100*confusion_reduced[2,2] / (sum(confusion_reduced[2,])), digits=2)
+Specificity_reduced = round(100*(1 - (confusion_reduced[1,2] / sum(confusion_reduced[1,]))), digits = 2)
+PPV_reduced = round(100*(1 - (confusion_reduced[1, 2] / sum(confusion_reduced[, 2]))), digits = 2)
+```
+
+- Accuracy = `r Accuracy_reduced`%
+- Sensitivity = `r Sensitivity_reduced`%
+- Specificity = `r Specificity_reduced`%
+- Positive Predictive Value = `r PPV_reduced`%
+
+This reduced model is even lower in our measures of concern, indicating that we need to consider different models. Particularly, we want to look at interactions between the risk factors, as having multiple high-probability risk factors could be a better indication of the likelihood of a breast cancer diagnosis. For the selection, we will add the recall binary variable to control for potential unobservables that doctors are selecting on when deciding who should be recalled. If there's something that the radiologists are not factoring in, we would expect to see some of the risk factors still exhibit statistical significance since it would improve the decision making process for the radiologists. 
+
+```{r selection, include = FALSE}
+cancer_step = step(base_glm, 
+			scope=~(. + recall + history + symptoms + menopause)^3)
+
+final_glm = glm(cancer ~ age + density + recall, data=brca, family = binomial)
+```
+```{r stargazer_final, echo = FALSE}
+stargazer(final_glm, type="text")
+```
+Our final model was the same as the reduced model with the addition of the information on whether a doctor recalled a patient or not. We see that people ages 70+ and people classified with extremely dense breasts have a significant positive relationship with cancer diagnoses, even after controlling for the actual recall decision. This means that if radiologists took more consideration for those two classifications of risk factors, they would likely be more efficient at recalling patients. To show this, we look at one more confusion matrix of predicted probabilities of recalling patients vs their actual diagnosis rates.
+
+```{r final_model, echo = FALSE}
+phat_test_logit_finalcancer = predict(final_glm, brca, type='response')
+yhat_test_logit_finalcancer = ifelse(phat_test_logit_finalcancer > 0.05, 1, 0)
+confusion_final = table(y = brca$cancer, yhat = yhat_test_logit_finalcancer)
+
+confusion_final
+```
+```{r inline_final, echo = FALSE}
+Accuracy_final = round(100*(sum(diag(confusion_final)/n)), digits = 2)
+Sensitivity_final = round(100*confusion_final[2,2] / (sum(confusion_final[2,])), digits=2)
+Specificity_final = round(100*(1 - (confusion_final[1,2] / sum(confusion_final[1,]))), digits = 2)
+PPV_final = round(100*(1 - (confusion_final[1, 2] / sum(confusion_final[, 2]))), digits = 2)
+```
+
+- Accuracy = `r Accuracy_final`%
+- Sensitivity = `r Sensitivity_final`%
+- Specificity = `r Specificity_final`%
+- Positive Predictive Value = `r PPV_final`%
 

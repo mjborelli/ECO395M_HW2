@@ -129,11 +129,6 @@ improvement in recall accuracy.
     ##      0 824 126
     ##      1  15  22
 
-    Accuracy = round(100*(sum(diag(baseline)/n)), digits = 2)
-    Sensitivity = round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)
-    Specificity = round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)
-    PPV = round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)
-
 From this table, we can generate important medical statistics that will
 help us compare predictions from our model against the actual decisions
 of radiologists:
@@ -141,7 +136,7 @@ of radiologists:
 -   Accuracy = 85.71%
 -   Sensitivity = 59.46%
 -   Specificity = 86.74%
--   Positive Predictive Value = 14.86
+-   Positive Predictive Value = 14.86%
 
 All of these give important information about the recall process,
 therefore we will analyze all of them for each model. However, the most
@@ -183,4 +178,111 @@ age category.
 
 ![](Homework_2_files/figure-markdown_strict/density_bar-1.png)
 
-### Modeling the Recall Decision
+### Importance of Risk Factors
+
+There are two general ways to model classification problems: Linear
+Probability models (LPM), and K-Nearest Neighbors (KNN). Due to the
+relative lack of cancer diagnoses and because all of the risk factors
+are categorical, it makes the most sense to use a LPM instead of a KNN.
+If given a larger sample of the data, KNN could be a more viable option
+for modelling breast cancer probabilities.
+
+To start, we will look at the linear probability model with all of the
+risk factors and no interactions between them. To note, we will use a 5%
+threshold for the limit at which a doctor should recall a patient for
+further testing.
+
+    ##    yhat
+    ## y     0   1
+    ##   0 716 234
+    ##   1  20  17
+
+-   Accuracy = 74.27%
+-   Sensitivity = 45.95%
+-   Specificity = 75.37%
+-   Positive Predictive Value = 6.77%
+
+Our base model has less accuracy, sensitivity, specificity, and positive
+predictive value than what we currently observe from radiologists. To
+try and improve the model, we take the two statistically significant
+variables from the base model, age and density, and create a new LPM to
+see if we improve any of our measures.
+
+    ##    yhat
+    ## y     0   1
+    ##   0 683 267
+    ##   1  20  17
+
+-   Accuracy = 70.92%
+-   Sensitivity = 45.95%
+-   Specificity = 71.89%
+-   Positive Predictive Value = 5.99%
+
+This reduced model is even lower in our measures of concern, indicating
+that we need to consider different models. Particularly, we want to look
+at interactions between the risk factors, as having multiple
+high-probability risk factors could be a better indication of the
+likelihood of a breast cancer diagnosis. For the selection, we will add
+the recall binary variable to control for potential unobservables that
+doctors are selecting on when deciding who should be recalled. If
+there’s something that the radiologists are not factoring in, we would
+expect to see some of the risk factors still exhibit statistical
+significance since it would improve the decision making process for the
+radiologists.
+
+    ## 
+    ## =============================================
+    ##                       Dependent variable:    
+    ##                   ---------------------------
+    ##                             cancer           
+    ## ---------------------------------------------
+    ## ageage5059                   0.340           
+    ##                             (0.491)          
+    ##                                              
+    ## ageage6069                   0.218           
+    ##                             (0.605)          
+    ##                                              
+    ## ageage70plus                1.210**          
+    ##                             (0.491)          
+    ##                                              
+    ## densitydensity2              0.780           
+    ##                             (1.074)          
+    ##                                              
+    ## densitydensity3              0.950           
+    ##                             (1.065)          
+    ##                                              
+    ## densitydensity4             2.008*           
+    ##                             (1.119)          
+    ##                                              
+    ## recall                     2.314***          
+    ##                             (0.358)          
+    ##                                              
+    ## Constant                   -5.502***         
+    ##                             (1.108)          
+    ##                                              
+    ## ---------------------------------------------
+    ## Observations                  987            
+    ## Log Likelihood             -131.467          
+    ## Akaike Inf. Crit.           278.934          
+    ## =============================================
+    ## Note:             *p<0.1; **p<0.05; ***p<0.01
+
+Our final model was the same as the reduced model with the addition of
+the information on whether a doctor recalled a patient or not. We see
+that people ages 70+ and people classified with extremely dense breasts
+have a significant positive relationship with cancer diagnoses, even
+after controlling for the actual recall decision. This means that if
+radiologists took more consideration for those two classifications of
+risk factors, they would likely be more efficient at recalling patients.
+To show this, we look at one more confusion matrix of predicted
+probabilities of recalling patients vs their actual diagnosis rates.
+
+    ##    yhat
+    ## y     0   1
+    ##   0 821 129
+    ##   1  14  23
+
+-   Accuracy = 85.51%
+-   Sensitivity = 62.16%
+-   Specificity = 86.42%
+-   Positive Predictive Value = 15.13%
