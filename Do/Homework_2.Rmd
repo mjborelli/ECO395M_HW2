@@ -12,7 +12,6 @@ library(dplyr)
 library(plyr)
 library(knitr)
 library(stargazer)
-# setwd("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2")
 brca = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/brca.csv")
 online_news = read.csv("D:/Documents/MA_Econ/Spring/ECO395M/My Work/Homework/ECO395M_HW2/data/online_news.csv")
 ```
@@ -66,7 +65,7 @@ The logit regression results do not show significant coefficients for any of the
 
 Now, instead of analyzing what might affect the probability of a radiologist recalling a patient, we want to see what factors best predict the likelihood of a patient having breast cancer. To do this, we will use a few different classification methods in order to better understand what risk factors best predict the probability of breast cancer.
 
-### Null Model
+### Null Models
 
 To start, we want to set a baseline that we can compare following models to. For our baseline, we use a null model which simply predicts the most likely answer for each observation.
 
@@ -74,8 +73,84 @@ To start, we want to set a baseline that we can compare following models to. For
 table(Cancer = brca$cancer)
 ```
 
-The null model, in this case predicting that each patient does not have cancer, has a `r round(950/(950+37)*100, digits=2)`%
+The null model, in this case predicting that each patient does not have cancer, has approximately a `r round(950/(950+37)*100, digits=2)`% accuracy rate, or equivalently a `round(100 - (950/(950+37)*100), digits=2)`% error rate. These statistics will be one part of our benchmark levels for evaluating the performance of the classificaiton models we will use.
 
+We also want to look at the current performance of radiologists at your hospital, to see if the following statistical models would result in an improvement in recall accuracy.
+
+```{r baseline, echo = FALSE}
+baseline = table(Cancer = brca$cancer, Recall = brca$recall)
+baseline
+n = nrow(brca)
+```
+
+From this table, we can generate important medical statistics that will help us compare predictions from our model against the actual decisions of radiologists:
+
+- Accuracy = `round(100*(sum(diag(baseline)/n)), digits = 2)`%
+- Sensitivity = `round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
+- Specificity = `round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
+- Positive Predictive Value = `round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
+
+All of these give important information about the recall process, therefore we will analyze all of them for each model. However, the most important your case is the sensitivity, as the consequences of missing a case of breast cancer are worse than incorrectly suspecting that someone does have breast cancer. We will look at all four of these values, but focus on the sensitivity of these models in order to limit the possibility of missing breast cancer patients.
+
+
+### Graphical Analysis
+
+Before deciding on a model, we want to graphically look at the relationships between the risk factors and breast cancer diagnoses. To do this, we will graph simple two-way scatter plots for the risk factors in question.
+
+- Age Category
+```{r age_bar, echo = FALSE}
+age_cancer_setup = as.data.frame(table(Age = brca$age,  Cancer = brca$cancer))
+age_cancer = data.frame(Age=levels(age_cancer_setup$age),
+                           stringsAsFactors = FALSE)
+for (i in 1:4) {
+  age_cancer[i, 1] = age_cancer_setup[i, 1]
+  no_cancer = age_cancer_setup[i, 3]
+  cancer = age_cancer_setup[i + 4, 3]
+  age_cancer[i, 2] = cancer/(no_cancer + cancer)
+}
+age_cancer
+p0 = ggplot(data = age_cancer)
+p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
+     labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
+```
+
+- History of Breast Biopsy/Surgery 
+```{r history_bar, echo = FALSE}
+history_cancer_setup = as.data.frame(table(History = brca$history,  Cancer = brca$cancer))
+history_cancer = data.frame(History=levels(history_cancer_setup$age),
+                           stringsAsFactors = FALSE)
+history_cancer_setup
+for (i in 1:2) {
+  history_cancer[i, 1] = history_cancer_setup[i, 1]
+  no_cancer = history_cancer_setup[i, 3]
+  cancer = history_cancer_setup[i + 2, 3]
+  history_cancer[i, 2] = cancer/(no_cancer + cancer)
+}
+history_cancer
+p0 = ggplot(data = history_cancer)
+p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
+     labs(x = "History of Breast Biopsy/Surgery", y = "Pct. Diagnosed w/ Breast Cancer")
+```
+
+-
+
+```{r symptoms_bar, echo = FALSE}
+symptoms_cancer_setup = as.data.frame(table(Symptoms = brca$symptoms,  Cancer = brca$cancer))
+age_cancer = data.frame(Age=levels(age_cancer_setup$age),
+                           stringsAsFactors = FALSE)
+for (i in 1:4) {
+  age_cancer[i, 1] = age_cancer_setup[i, 1]
+  no_cancer = age_cancer_setup[i, 3]
+  cancer = age_cancer_setup[i + 4, 3]
+  age_cancer[i, 2] = cancer/(no_cancer + cancer)
+}
+age_cancer
+p0 = ggplot(data = age_cancer)
+p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
+     labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
+```
+
+###
 
 # Predicting When Articles Go Viral
 
