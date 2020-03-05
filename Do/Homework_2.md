@@ -104,7 +104,7 @@ will use a few different classification methods in order to better
 understand what risk factors best predict the probability of breast
 cancer.
 
-### Null Model
+### Null Models
 
 To start, we want to set a baseline that we can compare following models
 to. For our baseline, we use a null model which simply predicts the most
@@ -115,7 +115,88 @@ likely answer for each observation.
     ## 950  37
 
 The null model, in this case predicting that each patient does not have
-cancer, has a 96.25%
+cancer, has approximately a 96.25% accuracy rate, or equivalently a
+`round(100 - (950/(950+37)*100), digits=2)`% error rate. These
+statistics will be one part of our benchmark levels for evaluating the
+performance of the classificaiton models we will use.
+
+We also want to look at the current performance of radiologists at your
+hospital, to see if the following statistical models would result in an
+improvement in recall accuracy.
+
+    ##       Recall
+    ## Cancer   0   1
+    ##      0 824 126
+    ##      1  15  22
+
+From this table, we can generate important medical statistics that will
+help us compare predictions from our model against the actual decisions
+of radiologists:
+
+-   Accuracy = `round(100*(sum(diag(baseline)/n)), digits = 2)`%
+-   Sensitivity =
+    `round(100*baseline[2,2] / (sum(baseline[2,])), digits=2)`%
+-   Specificity =
+    `round(100*(1 - (baseline[1,2] / sum(baseline[1,]))), digits = 2)`%
+-   Positive Predictive Value =
+    `round(100*(1 - (baseline[1, 2] / sum(baseline[, 2]))), digits = 2)`
+
+All of these give important information about the recall process,
+therefore we will analyze all of them for each model. However, the most
+important your case is the sensitivity, as the consequences of missing a
+case of breast cancer are worse than incorrectly suspecting that someone
+does have breast cancer. We will look at all four of these values, but
+focus on the sensitivity of these models in order to limit the
+possibility of missing breast cancer patients.
+
+### Graphical Analysis
+
+Before deciding on a model, we want to graphically look at the
+relationships between the risk factors and breast cancer diagnoses. To
+do this, we will graph simple two-way scatter plots for the risk factors
+in question.
+
+-   Age Category
+
+<!-- -->
+
+    ##          V1         V2
+    ## 1   age4049 0.03135889
+    ## 2   age5059 0.03521127
+    ## 3   age6069 0.02512563
+    ## 4 age70plus 0.05990783
+
+![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
+
+-   History of Breast Biopsy/Surgery
+
+<!-- -->
+
+    ##   History Cancer Freq
+    ## 1       0      0  784
+    ## 2       1      0  166
+    ## 3       0      1   29
+    ## 4       1      1    8
+
+    ##   V1         V2
+    ## 1  0 0.03567036
+    ## 2  1 0.04597701
+
+![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
+
+-   
+
+<!-- -->
+
+    ##          V1         V2
+    ## 1   age4049 0.03135889
+    ## 2   age5059 0.03521127
+    ## 3   age6069 0.02512563
+    ## 4 age70plus 0.05990783
+
+![](Homework_2_files/figure-markdown_strict/symptoms_bar-1.png)
+
+### 
 
 Predicting When Articles Go Viral
 =================================
