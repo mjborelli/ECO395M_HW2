@@ -157,44 +157,19 @@ do this, we will graph simple two-way scatter plots for the risk factors
 in question.
 
 -   Age Category
-
-<!-- -->
-
-    ##          V1         V2
-    ## 1   age4049 0.03135889
-    ## 2   age5059 0.03521127
-    ## 3   age6069 0.02512563
-    ## 4 age70plus 0.05990783
-
-![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
+    ![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
 
 -   History of Breast Biopsy/Surgery
+    ![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
 
-<!-- -->
-
-    ##   History Cancer Freq
-    ## 1       0      0  784
-    ## 2       1      0  166
-    ## 3       0      1   29
-    ## 4       1      1    8
-
-    ##   V1         V2
-    ## 1  0 0.03567036
-    ## 2  1 0.04597701
-
-![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
-
--   
-
-<!-- -->
-
-    ##          V1         V2
-    ## 1   age4049 0.03135889
-    ## 2   age5059 0.03521127
-    ## 3   age6069 0.02512563
-    ## 4 age70plus 0.05990783
+-   Breast Cancer Symptoms
 
 ![](Homework_2_files/figure-markdown_strict/symptoms_bar-1.png)
+
+-   Menopause Status
+
+![](Homework_2_files/figure-markdown_strict/menopause_bar-1.png)
+----------------------------------------------------------------
 
 ### 
 

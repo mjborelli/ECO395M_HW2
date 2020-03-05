@@ -106,9 +106,8 @@ for (i in 1:4) {
   age_cancer[i, 1] = age_cancer_setup[i, 1]
   no_cancer = age_cancer_setup[i, 3]
   cancer = age_cancer_setup[i + 4, 3]
-  age_cancer[i, 2] = cancer/(no_cancer + cancer)
+  age_cancer[i, 2] = 100*cancer/(no_cancer + cancer)
 }
-age_cancer
 p0 = ggplot(data = age_cancer)
 p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
      labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
@@ -119,36 +118,53 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) +
 history_cancer_setup = as.data.frame(table(History = brca$history,  Cancer = brca$cancer))
 history_cancer = data.frame(History=levels(history_cancer_setup$age),
                            stringsAsFactors = FALSE)
-history_cancer_setup
 for (i in 1:2) {
   history_cancer[i, 1] = history_cancer_setup[i, 1]
   no_cancer = history_cancer_setup[i, 3]
   cancer = history_cancer_setup[i + 2, 3]
   history_cancer[i, 2] = cancer/(no_cancer + cancer)
 }
-history_cancer
 p0 = ggplot(data = history_cancer)
-p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
+p0 + geom_bar(stat = "identity", aes(x = V1, y = 100 * V2)) + 
      labs(x = "History of Breast Biopsy/Surgery", y = "Pct. Diagnosed w/ Breast Cancer")
 ```
 
--
+- Breast Cancer Symptoms
 
 ```{r symptoms_bar, echo = FALSE}
 symptoms_cancer_setup = as.data.frame(table(Symptoms = brca$symptoms,  Cancer = brca$cancer))
-age_cancer = data.frame(Age=levels(age_cancer_setup$age),
+symptoms_cancer = data.frame(Symptoms=levels(symptoms_cancer_setup$Symptoms),
+                           stringsAsFactors = FALSE)
+for (i in 1:2) {
+  symptoms_cancer[i, 1] = symptoms_cancer_setup[i, 1]
+  no_cancer = symptoms_cancer_setup[i, 3]
+  cancer = symptoms_cancer_setup[i + 2, 3]
+  symptoms_cancer[i, 2] = 100 * cancer/(no_cancer + cancer)
+}
+p0 = ggplot(data = symptoms_cancer)
+p0 + geom_bar(stat = "identity", aes(x = Symptoms, y = V2)) + 
+     labs(x = "Previous Symptoms", y = "Pct. Diagnosed w/ Breast Cancer")
+```
+
+- Menopause Status
+
+```{r menopause_bar, echo = FALSE}
+menopause_cancer_setup = as.data.frame(table(Menopause = brca$menopause,  Cancer = brca$cancer))
+menopause_cancer = data.frame(Menopause=levels(menopause_cancer_setup$menopause),
                            stringsAsFactors = FALSE)
 for (i in 1:4) {
-  age_cancer[i, 1] = age_cancer_setup[i, 1]
-  no_cancer = age_cancer_setup[i, 3]
-  cancer = age_cancer_setup[i + 4, 3]
-  age_cancer[i, 2] = cancer/(no_cancer + cancer)
+  menopause_cancer[i, 1] = menopause_cancer_setup[i, 1]
+  no_cancer = menopause_cancer_setup[i, 3]
+  cancer = menopause_cancer_setup[i + 4, 3]
+  menopause_cancer[i, 2] = 100*cancer/(no_cancer + cancer)
 }
-age_cancer
-p0 = ggplot(data = age_cancer)
+p0 = ggplot(data = menopause_cancer)
 p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) + 
-     labs(x = "Age Category", y = "Pct. Diagnosed w/ Breast Cancer")
+     labs(x = "Menopause Status", y = "Pct. Diagnosed w/ Breast Cancer")
 ```
+-
+
+
 
 ###
 
