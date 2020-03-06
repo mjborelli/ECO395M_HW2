@@ -26,22 +26,22 @@ Conservative Radiologists
 
 The naive method for analyzing conservativeness amongst your
 radiologists would be to look at the raw recall rates. Radiologists with
-a lower than average recall rate would be considered “conservative”.
+a higher than average recall rate would be considered “conservative”.
 Below is a bar chart showing the raw recall rates for each of the
 radiologists in our sample.
 
 ![](Homework_2_files/figure-markdown_strict/initial-1.png)
 
-Judging from this chart, we would say that radiologist 34 is more
-conservative in recalling patients than the other radiologists. However,
-this simple analysis overlooks an important nuance: Doctors might see
-different patients in systematic ways that affect their recall rates.
-The next step we took was to control for patient factors to see if any
-radiologists are more conservative than others, holding all else fixed.
-The following is the results from a logit regression model with controls
-for breat cancer symptoms and breast density classification. All other
-controls in the data set given had no statistically significant effect
-on the probability of a recall.
+Judging from this chart, we would say that radiologists 66 and 89 are
+more conservative in recalling patients than the other radiologists.
+However, this simple analysis overlooks an important nuance: Doctors
+might see different patients in systematic ways that affect their recall
+rates. The next step we took was to control for patient factors to see
+if any radiologists are more conservative than others, holding all else
+fixed. The following is the results from a logit regression model with
+controls for breat cancer symptoms and breast density classification.
+All other controls in the data set given had no statistically
+significant effect on the probability of a recall.
 
     ## 
     ## ====================================================
@@ -86,10 +86,10 @@ on the probability of a recall.
 The logit regression results do not show significant coefficients for
 any of the radiologists. To note, radiologist 13 is the omitted
 radiologist. We see no signficanct difference for any of the other
-radiologists other than radiologist 85, who has a positive (less
+radiologists other than radiologist 85, who has a positive (more conserv
 conservative) difference at the 10% level. It is possible that
 radiologists 34 and 85 are significantly different, but we can’t really
-be certain that radiologist 34 is more conservative than the others.
+be certain that radiologist 34 is less conservative than the others.
 Overall, since we see that there aren’t any radiologists in our sample
 that are significantally more conservative in recalling patients after
 using a logit model to hold risk factors constant.
@@ -116,9 +116,9 @@ likely answer for each observation.
 
 The null model, in this case predicting that each patient does not have
 cancer, has approximately a 96.25% accuracy rate, or equivalently a
-`round(100 - (950/(950+37)*100), digits=2)`% error rate. These
-statistics will be one part of our benchmark levels for evaluating the
-performance of the classificaiton models we will use.
+3.75% error rate. These statistics will be one part of our benchmark
+levels for evaluating the performance of the classificaiton models we
+will use.
 
 We also want to look at the current performance of radiologists at your
 hospital, to see if the following statistical models would result in an
@@ -166,17 +166,34 @@ age category.
 
 ![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
 
+Having a previous breast biopsy or surgery doesn’t seem to have too much
+of an impact on future cancer diagnoses, as there is about a 1%
+difference in diagnosis rate.
+
 -   Breast Cancer Symptoms
 
 ![](Homework_2_files/figure-markdown_strict/symptoms_bar-1.png)
+
+People who have had previous symptoms (coded as 2 here) are diagnosed
+with breast cancer at a 2% higher rate. This difference might or might
+not be statistically significant.
 
 -   Menopause Status
 
 ![](Homework_2_files/figure-markdown_strict/menopause_bar-1.png)
 
+Most of the classifications for menopause status are the same, but
+people who are post menopausal with unknown hormone treatment seem to
+have a significantly higher diagnosis rate.
+
 -   Breast Density Classification
 
 ![](Homework_2_files/figure-markdown_strict/density_bar-1.png)
+
+People classified as Breast Density 4 (Extremely Dense) seem to have a
+significantly higher diagnosis rate. On the other hand, people
+classified as Breast Density 1 (Almost Entirely Fatty) look to have a
+much lower rate of breast cancer diagnoses.
 
 ### Importance of Risk Factors
 
@@ -316,7 +333,7 @@ else fixed. As well, patients with the breast density classification of
 with cancer, holding all else fixed. We want to make sure that
 radiologists still make recall decisions with the same general process,
 since there might be unobservable reasons that inform their decisions.
-Therefore, we suggest that radiologists at your hospital should be less
+Therefore, we suggest that radiologists at your hospital should be more
 conservative in recalling patients who are 70 and older and/or are fit
 the breast density classification of “Extremely Dense”, while otherwise
 considering their recall decisions in the same way.
