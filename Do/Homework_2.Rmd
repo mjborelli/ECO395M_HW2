@@ -104,8 +104,6 @@ All of these give important information about the recall process, therefore we w
 
 Before deciding on a model, we want to graphically look at the relationships between the risk factors and breast cancer diagnoses. To do this, we will graph simple two-way scatter plots for the risk factors in question.
 
-- Age Category
-
 ```{r age_bar, echo = FALSE}
 age_cancer_setup = as.data.frame(table(Age = brca$age,  Cancer = brca$cancer))
 age_cancer = data.frame(Age=levels(age_cancer_setup$age),
@@ -123,8 +121,6 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) +
 ```
 
 There seems to be a positive trend with age, even though ages 60-69 are less likely to be diagnosed with breast cancer. Patients aged 70+ are almost twice as likely to be diagnosed with breast cancer than any other age category.
-
-- History of Breast Biopsy/Surgery 
 
 ```{r history_bar, echo = FALSE}
 history_cancer_setup = as.data.frame(table(History = brca$history,  Cancer = brca$cancer))
@@ -144,8 +140,6 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = 100 * V2)) +
 
 Having a previous breast biopsy or surgery doesn't seem to have too much of an impact on future cancer diagnoses, as there is about a 1% difference in diagnosis rate.
 
-- Breast Cancer Symptoms
-
 ```{r symptoms_bar, echo = FALSE}
 symptoms_cancer_setup = as.data.frame(table(Symptoms = brca$symptoms,  Cancer = brca$cancer))
 symptoms_cancer = data.frame(Symptoms=levels(symptoms_cancer_setup$Symptoms),
@@ -164,8 +158,6 @@ p0 + geom_bar(stat = "identity", aes(x = Symptoms, y = V2)) +
 
 People who have had previous symptoms (coded as 2 here) are diagnosed with breast cancer at a 2% higher rate. This difference might or might not be statistically significant.
 
-- Menopause Status
-
 ```{r menopause_bar, echo = FALSE}
 menopause_cancer_setup = as.data.frame(table(Menopause = brca$menopause,  Cancer = brca$cancer))
 menopause_cancer = data.frame(Menopause=levels(menopause_cancer_setup$menopause),
@@ -183,8 +175,6 @@ p0 + geom_bar(stat = "identity", aes(x = V1, y = V2)) +
 ```
 
 Most of the classifications for menopause status are the same, but people who are post menopausal with unknown hormone treatment seem to have a significantly higher diagnosis rate.
-
-- Breast Density Classification
 
 ```{r density_bar, echo = FALSE}
 density_cancer_setup = as.data.frame(table(Density = brca$density,  Cancer = brca$cancer))

@@ -153,8 +153,6 @@ relationships between the risk factors and breast cancer diagnoses. To
 do this, we will graph simple two-way scatter plots for the risk factors
 in question.
 
--   Age Category
-
 ![](Homework_2_files/figure-markdown_strict/age_bar-1.png)
 
 There seems to be a positive trend with age, even though ages 60-69 are
@@ -162,15 +160,11 @@ less likely to be diagnosed with breast cancer. Patients aged 70+ are
 almost twice as likely to be diagnosed with breast cancer than any other
 age category.
 
--   History of Breast Biopsy/Surgery
-
 ![](Homework_2_files/figure-markdown_strict/history_bar-1.png)
 
 Having a previous breast biopsy or surgery doesn’t seem to have too much
 of an impact on future cancer diagnoses, as there is about a 1%
 difference in diagnosis rate.
-
--   Breast Cancer Symptoms
 
 ![](Homework_2_files/figure-markdown_strict/symptoms_bar-1.png)
 
@@ -178,15 +172,11 @@ People who have had previous symptoms (coded as 2 here) are diagnosed
 with breast cancer at a 2% higher rate. This difference might or might
 not be statistically significant.
 
--   Menopause Status
-
 ![](Homework_2_files/figure-markdown_strict/menopause_bar-1.png)
 
 Most of the classifications for menopause status are the same, but
 people who are post menopausal with unknown hormone treatment seem to
 have a significantly higher diagnosis rate.
-
--   Breast Density Classification
 
 ![](Homework_2_files/figure-markdown_strict/density_bar-1.png)
 
