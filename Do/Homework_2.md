@@ -314,11 +314,11 @@ significantly different than the average in our sample. In this regard,
 we can say that your radiologists are performing well and you don’t
 particularly need to encourage any behavior change.
 
-We did see that there were some risk factors that seemingly weren’t
-being appropriately accounted for in a radiologist’s decision on whether
-to recall a patient or not. In particular, the category of patients
-above age 70 are more likely to be diagnosed with cancer, holding all
-else fixed. As well, patients with the breast density classification of
+We did see that there were some risk factors that weren’t being
+appropriately accounted for in a radiologist’s decision on whether to
+recall a patient or not. In particular, the category of patients above
+age 70 are more likely to be diagnosed with cancer, holding all else
+fixed. As well, patients with the breast density classification of
 “Extremely Dense” are also significantly more likely to be diagnosed
 with cancer, holding all else fixed. We want to make sure that
 radiologists still make recall decisions with the same general process,
